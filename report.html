@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>步态评估报告</title>
+
+<style>
+body {
+    margin: 0;
+    background: #eef3f8;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", Arial;
+}
+
+/* 9:16 主容器 */
+.report-wrapper {
+    max-width: 420px;        /* 接近手机宽度 */
+    height: 100vh;
+    margin: 0 auto;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 图片区 */
+.report-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.report-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 底部导航 */
+.report-nav {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-top: 1px solid #e5e7eb;
+    background: #ffffff;
+}
+
+.report-nav button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #2563eb;
+    color: #fff;
+    font-size: 14px;
+}
+
+.report-nav button:disabled {
+    background: #cbd5e1;
+}
+
+.page-indicator {
+    font-size: 14px;
+    color: #374151;
+}
+</style>
+</head>
+
+<body>
+
+<div class="report-wrapper">
+    <div class="report-content">
+        <img id="reportImage" src="img/report1.png">
+    </div>
+
+    <div class="report-nav">
+        <button id="prevBtn" onclick="prev()">上一页</button>
+        <div class="page-indicator" id="pageText">1 / 7</div>
+        <button id="nextBtn" onclick="next()">下一页</button>
+    </div>
+</div>
+
+<script>
+const images = [
+    "report1.png",
+    "report2.png",
+    "report3.png",
+    "report4.png",
+    "report5.png",
+    "report6.png",
+    "report7.png"
+];
+
+let current = 0;
+const img = document.getElementById("reportImage");
+const pageText = document.getElementById("pageText");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+function update() {
+    img.src = images[current];
+    pageText.textContent = `${current + 1} / ${images.length}`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === images.length - 1;
+}
+
+function prev() {
+    if (current > 0) {
+        current--;
+        update();
+    }
+}
+
+function next() {
+    if (current < images.length - 1) {
+        current++;
+        update();
+    }
+}
+
+update();
+</script>
+
+</body>
+</html>
